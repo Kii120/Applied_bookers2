@@ -3,15 +3,16 @@
   <div class="row">
     <div class="col-md-3">
       <h2>User info</h2>
+      <%= image_tag @user.get_profile_image(100,100) %>
       <table class="table">
         <tbody>
           <tr>
             <th>name</th>
-            <th>adf</th>
+            <th><%= @user.name %></th>
           </tr>
           <tr>
             <th>introduction</th>
-            <th></th>
+            <th><%= @user.introduction %></th>
           </tr>
         </tbody>
       </table>
