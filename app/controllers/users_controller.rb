@@ -2,11 +2,15 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @book = Book.new
+    # .post_imagesで特定のユーザの投稿すべてを持ってこれる
+    # .allはユーザ関係なく全部
+    @books = @user.books
   end
 
   def index
     @user = User.find(current_user.id)
     @users = User.all
+    @book = Book.new
   end
 
   def edit
