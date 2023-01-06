@@ -14,6 +14,18 @@
       </ul>
     </div>
   <% end %>
+  <% if @book_comment.errors.any? %>
+    <div id="error_explanation">
+      <h3>
+        <%= @book_comment.errors.count %> errors prohibited this obj from being saved:
+      </h3>
+      <ul>
+        <% @book_comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="row">
     <div class="col-md-3">
       <h2>User info</h2>
@@ -35,7 +47,7 @@
             <i class="fas fa-user-cog"></i>
           <% end %>
         <h2 class="mt-3">New book</h2>
-        
+
         <%= form_with model: @book_new do |f| %>
           <div class="form-group">
             <label>Title</label>
@@ -68,6 +80,9 @@
               <% end %>
             </td>
             <td><%= @book.body %></td>
+            <td>
+              コメント数:<%= @book.book_comments.count %>
+            </td>
             <% if @book.user == current_user %>
               <td>
                   <%= link_to "Edit", edit_book_path(@book.id), class: 'btn btn-sm btn-success' %>
@@ -79,6 +94,36 @@
           </tr>
         </tbody>
       </table>
+      <table>
+        <tbody>
+          <% @book_comments.each do |comment| %>
+            <tr>
+              <td>
+                <%= link_to user_path(comment.user.id) do %>
+                  <%= image_tag comment.user.get_profile_image(80,80) %><br>
+                  <%= comment.user.name %>
+                <% end %>
+              </td>
+              <td>
+                <%= comment.comment %>
+              </td>
+              <% if @book.user == current_user %>
+                <td>
+                  <%= link_to "Destroy", book_book_comment_path(comment.book_id, comment.id), method: :delete, class: 'btn btn-sm btn-danger' %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= form_with model: [@book, @book_comment] do |f| %>
+          <div class="form-group">
+            <%= f.text_area :comment, class:"form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit '送信', class:"btn btn-success" %>
+          </div>
+      <% end %>
     </div>
   </div>
 </div>
