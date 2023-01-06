@@ -10,7 +10,7 @@ class BookCommentsController < ApplicationController
       @book_new = Book.new
       @book_comments = @book.book_comments
       @book_comment = BookComment.new
-      render template: "books/show"
+      render 'books/show'
     end
   end
   

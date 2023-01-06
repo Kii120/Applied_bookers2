@@ -107,7 +107,7 @@
               <td>
                 <%= comment.comment %>
               </td>
-              <% if @book.user == current_user %>
+              <% if comment.user == current_user %>
                 <td>
                   <%= link_to "Destroy", book_book_comment_path(comment.book_id, comment.id), method: :delete, class: 'btn btn-sm btn-danger' %>
                 </td>
