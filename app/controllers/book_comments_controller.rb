@@ -20,7 +20,7 @@ class BookCommentsController < ApplicationController
       redirect_to book_path(book_comment.book_id)
     else
       book_comment.destroy
-      render request.referer
+      redirect_to request.referer
     end
   end
   
