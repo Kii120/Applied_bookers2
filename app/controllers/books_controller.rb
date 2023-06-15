@@ -47,9 +47,9 @@ class BooksController < ApplicationController
     @book_comments = @book.book_comments
     @book_comment = BookComment.new
   end
-  
+
   private
-  
+
   def book_params
     params.require(:book).permit(:title, :body)
   end

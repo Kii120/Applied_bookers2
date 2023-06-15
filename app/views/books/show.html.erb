@@ -40,9 +40,32 @@
             <th>introduction</th>
             <th><%= @book.user.introduction %></th>
           </tr>
+          <tr>
+            <th>follows</th>
+            <th>
+              <%= link_to user_followings_path(@book.user) do %>
+                <%= @book.user.followings.count %>
+              <% end %>
+            </th>
+          </tr>
+          <tr>
+            <th>followers</th>
+            <th>
+              <%= link_to user_followers_path(@book.user) do %>
+                <%= @book.user.followers.count %>
+              <% end %>
+            </th>
+          </tr>
         </tbody>
       </table>
-      <div class="row">
+      <% unless @book.user == current_user %>
+        <% if current_user.following?(@book.user) %>
+          <%= link_to "フォロー外す", user_relationships_path(@book.user.id), method: :delete, class:"btn btn-primary" %>
+        <% else %>
+          <%= link_to "フォローする", user_relationships_path(@book.user.id), method: :post, class:"btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <div class="row" style='margin-top: 10px;'>
           <%= link_to edit_user_path(@book.user_id), class: "btn btn-outline-secondary btn-block edit_user_path" do %>
             <i class="fas fa-user-cog"></i>
           <% end %>
@@ -64,6 +87,16 @@
       </div>
     </div>
     <div class="col-md-8 offset-md-1">
+      <% if user_signed_in? %>
+        <div class="search_form">
+          <%= form_with url: search_path, local: true, method: :get do |f| %>
+            <%= f.text_field :word %>
+            <%= f.select :range, options_for_select([['User'], ['Book']]) %>
+            <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+            <%= f.submit "検索", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      <% end %>
       <h2>Book detail</h2>
       <table class="table">
         <tbody>
