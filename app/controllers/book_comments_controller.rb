@@ -5,22 +5,26 @@ class BookCommentsController < ApplicationController
     @comment.book_id = @book.id
     if @comment.save
       flash[:notice] = "You have created comment successfully."
-      redirect_to book_path(@book.id)
+      @book_new = Book.new
+      @book_comments = @book.book_comments
+      @book_comment = BookComment.new
     else
       @book_new = Book.new
       @book_comments = @book.book_comments
       @book_comment = BookComment.new
-      render 'books/show'
     end
   end
   
   def destroy
-    book_comment = BookComment.find(params[:id])
-    if book_comment.user_id != current_user.id
-      redirect_to book_path(book_comment.book_id)
+    @book = Book.find(params[:book_id])
+    @book_comment = BookComment.find(params[:id])
+    if @book_comment.user_id != current_user.id
+      redirect_to book_path(@book_comment.book_id)
     else
-      book_comment.destroy
-      redirect_to request.referer
+      @book_comment.destroy
+      @book_new = Book.new
+      @book_comments = @book.book_comments
+      @book_comment = BookComment.new
     end
   end
   
