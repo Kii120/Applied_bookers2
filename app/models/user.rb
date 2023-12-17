@@ -15,6 +15,11 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed #フォローしている人をたくさん持っている. followedとして保存されている？
   has_many :followers, through: :reverse_relationships, source: :follower #フォロワーをたくさん持っている．
 
+  # DM機能
+  has_many :chats, dependent: :destroy
+  has_many :user_rooms, dependent: :destroy
+  has_many :rooms, through: :user_rooms
+
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
   validates :introduction, length: { maximum: 50 }
@@ -30,7 +35,7 @@ class User < ApplicationRecord
   #フォローしたときの処理
   def follow(user_id)
     relationships.new(followed_id: user_id) # user_idの持ち主にフォローされたという関係性を作る
-    
+
   end
 
   #フォローを外したときの処理
@@ -42,7 +47,7 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-  
+
   def self.looks(search, word)
     if search == "perfect_match"
       @user = User.where("name LIKE?", "#{word}")

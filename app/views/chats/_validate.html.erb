@@ -1,0 +1,12 @@
+  <% if chat.errors.any? %>
+    <div id="error_explanation">
+      <h3>
+        <%= chat.errors.count %> errors prohibited this obj from being saved:
+      </h3>
+      <ul>
+        <% chat.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>

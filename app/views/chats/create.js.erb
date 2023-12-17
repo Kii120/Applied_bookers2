@@ -1,0 +1,4 @@
+ $(".message-index").html("<%= j(render 'chats/index', chats: @chats) %>");
+
+<%# 送信後にコメントボックスを空にする %>
+$('#message_textarea').val("")

@@ -38,7 +38,16 @@ class BooksController < ApplicationController
   def index
     @user = User.find(current_user.id)
     @book = Book.new
-    @books = Book.all
+
+    # sortを使って並べ替え
+    # .sortは-1が来たら要素を逆転させる．
+    # b <=> a は, b < aの時に-1, b > aの時に1, b = aの時に0を返す．
+    to  = Time.current.at_end_of_day
+    from  = (to - 6.day).at_beginning_of_day
+    @books = Book.all.sort {|a,b|
+      b.favorites.where(created_at: from...to).size <=>
+      a.favorites.where(created_at: from...to).size
+    }
   end
 
   def show

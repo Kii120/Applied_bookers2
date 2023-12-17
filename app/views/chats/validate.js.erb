@@ -1,0 +1,4 @@
+$(".validate").html("<%= j(render 'chats/validate', chat: @chat) %>");
+
+<%# 送信後にコメントボックスを空にする %>
+$('#message_textarea').val("")

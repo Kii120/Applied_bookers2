@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag 'chats', :media => "all" %>
+
+<h2><%= @opponent.name%></h2>
+<div id="chat-plame">
+  <div class="message-index">
+    <%= render "chats/index", chats: @chats %>
+  </div>
+
+  <div class="validate">
+    <%= render "chats/validate", chat: @chat %>
+  </div>
+
+  <%= form_with model: @chat, local: false do |f| %>
+    <div class="form-group">
+      <%= f.text_field :message, class:"form-control", id:"message_textarea" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit 'Send', class: "btn btn-success" %>
+    </div>
+    <%= f.hidden_field :room_id %>
+  <% end %>
+
+</div>
+

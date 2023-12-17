@@ -13,9 +13,11 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
-  
+
+  resources :chats, only: [:show, :create, :destroy]
+
   get "search" => "searches#search"
-  
+
   get 'home/about' => 'homes#about', as: 'about'
   patch 'users/:id' => 'users#update', as: 'update_user'
 
