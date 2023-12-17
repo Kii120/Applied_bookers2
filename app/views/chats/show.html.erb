@@ -1,24 +1,36 @@
-<%= stylesheet_link_tag 'chats', :media => "all" %>
 
-<h2><%= @opponent.name%></h2>
-<div id="chat-plame">
-  <div class="message-index">
-    <%= render "chats/index", chats: @chats %>
-  </div>
-
-  <div class="validate">
-    <%= render "chats/validate", chat: @chat %>
-  </div>
-
-  <%= form_with model: @chat, local: false do |f| %>
-    <div class="form-group">
-      <%= f.text_field :message, class:"form-control", id:"message_textarea" %>
+<p id="notice"></p>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-3">
+      <%= render 'layouts/userinfo', user: @opponent %>
     </div>
-    <div class="form-group">
-      <%= f.submit 'Send', class: "btn btn-success" %>
-    </div>
-    <%= f.hidden_field :room_id %>
-  <% end %>
+    <div class="col-9">
+      <h2 style="margin: 30px 0px 30px 50px;"><%= @opponent.name%></h2>
+      <div class="chat-flame">
+        <div class="message-index ">
+          <%= render "chats/index", chats: @chats %>
+        </div>
 
+        <div class="validate">
+          <%= render "chats/validate", chat: @chat %>
+        </div>
+
+
+        <%= form_with model: @chat, local: false do |f| %>
+          <div class="row" style="margin-top:10px;">
+            <div class="col-1"></div>
+            <div class="form-group col-8">
+              <%= f.text_field :message, class:"form-control", id:"message_textarea" %>
+            </div>
+            <div class="form-group col-1">
+              <%= f.submit 'Send', class: "btn btn-success" %>
+            </div>
+          </div>
+          <%= f.hidden_field :room_id %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 

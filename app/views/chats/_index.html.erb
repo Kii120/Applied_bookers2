@@ -1,7 +1,16 @@
   <% chats.each do |chat| %>
     <% if chat.user_id == current_user.id %>
-      <%= render "chats/chat", chat: chat %>
+      <div>
+        <%= render "chats/chat", chat: chat %>
+      </div>
     <% else %>
-      <p style="text-align: left;"><%= chat.message %></p>
+      <div class="d-flex" style="margin:5px 0 5px 0;">
+        <div>
+          <div class="messaged-boxes" style="background:#fcf4d6;">
+            <%= chat.message %>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
     <% end %>
   <% end %>

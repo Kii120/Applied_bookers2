@@ -10,6 +10,52 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- * require_tree .
+ *= require_tree .
  *= require_self
  */
+
+.chat-flame {
+  width: 400px;
+  margin: auto;
+  padding: 0.2em 0.5em;
+  color: #565656;
+  background: #ffeaea;
+  box-shadow: 0px 0px 0px 10px #ffeaea;
+  border: dashed 2px #ffc3c3;
+  border-radius: 8px;
+}
+
+.messaged-boxes {
+  position: relative;
+  display: inline-block;
+  /* 文字数に合わせて幅を決める */
+  padding: 4px 15px;
+  background: #fcd6df;
+  border-radius: 30px;
+  max-width: 300px;
+}
+
+.messaged-boxes:before {
+  position: absolute;
+  left: -40px;
+  bottom: 0;
+  background: #fcd6df;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.messaged-boxes:after {
+  font-family: FontAwesome;
+  content: "\f111";
+  position: absolute;
+  font-size: 23px;
+  left: -23px;
+  bottom: 0;
+  color: #fff0c6;
+}
+
+.messaged-boxes p {
+  margin: 0;
+  padding: 0;
+}

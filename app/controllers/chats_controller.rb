@@ -43,6 +43,7 @@ class ChatsController < ApplicationController
     @chat = Chat.find(params[:id])
     if @chat.user_id == current_user.id
       @chat.destroy
+
     end
     redirect_to request.referer
   end
