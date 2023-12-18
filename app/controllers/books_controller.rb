@@ -55,6 +55,10 @@ class BooksController < ApplicationController
     @book_new = Book.new
     @book_comments = @book.book_comments
     @book_comment = BookComment.new
+    # if ViewCount.find_by(user_id: current_user.id, book_id: @book.id).nil?
+      view_count = current_user.view_counts.create(book_id: @book.id)
+      view_count.save
+    # end
   end
 
   private

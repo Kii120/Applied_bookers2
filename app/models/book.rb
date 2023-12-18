@@ -8,6 +8,8 @@ class Book < ApplicationRecord
     # create_atカラムが1.week.ago.beginning_of_day（一週間前）からTime.current.end_of_day（今日）までに該当するものを指定
   has_many :week_favorites, -> { where(created_at: 1.week.ago.beginning_of_day..Time.current.end_of_day) }
 
+  has_many :view_counts, dependent: :destroy
+
   validates :title, presence: true
   validates :body, presence: true
 
