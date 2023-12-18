@@ -15,13 +15,13 @@
     </div>
   <% end %>
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 border-right border-success">
       <%= render 'layouts/userinfo', user: @user %>
       <%= render 'layouts/bookform', book: @book %>
     </div>
     <div class="col-md-8 offset-md-1">
       <% if user_signed_in? %>
-        <div class="search_form">
+        <div class="search_form float-right">
           <%= form_with url: search_path, local: true, method: :get do |f| %>
             <%= f.text_field :word %>
             <%= f.select :range, options_for_select([['User'], ['Book']]) %>

@@ -14,6 +14,54 @@
  *= require_self
  */
 
+/* body */
+body {
+  color: #0d4103;
+}
+
+/* header,footer */
+
+.navbar-dark .navbar-toggler {
+  border-color: #4c9b77;
+}
+
+.footer-margin {
+  background: #d7eedc;
+  height: 50px;
+}
+
+.navbar,
+footer {
+  background: #90d8a0;
+}
+
+footer .correct-footer {
+  background: #90d8a0;
+}
+
+
+/* main */
+main {
+  background: #28a74530;
+}
+
+.table {
+  color: #0d4103;
+}
+
+.table thead th {
+  border-bottom: 2px solid #89bda5;
+  border-top: 2px solid #89bda5;
+}
+
+.table th {
+  border-top: 1px solid #89bda5;
+}
+
+.table td {
+  border-top: 1px solid #89bda5;
+}
+
 .chat-flame {
   width: 400px;
   margin: auto;
