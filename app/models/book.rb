@@ -8,7 +8,14 @@ class Book < ApplicationRecord
     # create_atカラムが1.week.ago.beginning_of_day（一週間前）からTime.current.end_of_day（今日）までに該当するものを指定
   has_many :week_favorites, -> { where(created_at: 1.week.ago.beginning_of_day..Time.current.end_of_day) }
 
+  # 閲覧数
   has_many :view_counts, dependent: :destroy
+
+  # 本の投稿数
+  scope :created_today, -> {where(created_at: Time.current.all_day)}
+  scope :created_yesterday, -> {where(created_at: 1.day.ago.all_day)}
+  scope :created_this_week, -> {where(created_at: (Time.current - 6.day).beginning_of_day..Time.current.end_of_day)}
+  scope :created_last_week, -> {where(created_at: (Time.current - 13.day).beginning_of_day..(Time.current - 7.day).end_of_day)}
 
   validates :title, presence: true
   validates :body, presence: true

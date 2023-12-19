@@ -74,6 +74,55 @@
           <% end %>
         </tbody>
       </table>
+      <h4>投稿数の前日比・前週比</h4>
+      <table class="table table-hover table-inverse border border-success" style="width:80%;margin:10px auto 0;">
+        <thead>
+          <th>今日の投稿数</th>
+          <th>前日の投稿数</th>
+          <th>前日比</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= @books.created_today.count %>
+            </td>
+            <td>
+              <%= @books.created_yesterday.count %>
+            </td>
+            <td>
+              <% if @books.created_yesterday.count == 0 %>
+                -
+              <% else %>
+                <%= ((@books.created_today.count / @books.created_yesterday.count)*100).round %>%
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-hover table-inverse border border-success" style="width:80%;margin:10px auto 0;">
+        <thead>
+          <th>今週の投稿数</th>
+          <th>先週の投稿数</th>
+          <th>前週比</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= @books.created_this_week.count %>
+            </td>
+            <td>
+              <%= @books.created_last_week.count %>
+            </td>
+            <td>
+              <% if @books.created_last_week.count == 0 %>
+                -
+              <% else %>
+                <%= ((@books.created_this_week.count / @books.created_last_week.count)*100).round %>%
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
