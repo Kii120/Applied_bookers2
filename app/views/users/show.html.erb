@@ -74,8 +74,80 @@
           <% end %>
         </tbody>
       </table>
+      <h4>７日分の投稿数</h4>
+      <table class="table table-hover table-inverse border border-success" style="width:80%;margin:10px auto 0;text-align:center;">
+        <thead>
+          <th>６日前</th>
+          <th>５日前</th>
+          <th>４日前</th>
+          <th>３日前</th>
+          <th>２日前</th>
+          <th>１日前</th>
+          <th>今日</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= @books.where(created_at: 6.day.ago.all_day).count %>
+            </td>
+            <td>
+              <%= @books.where(created_at: 5.day.ago.all_day).count %>
+            </td>
+            <td>
+              <%= @books.where(created_at: 4.day.ago.all_day).count %>
+            </td>
+            <td>
+              <%= @books.where(created_at: 3.day.ago.all_day).count %>
+            </td>
+            <td>
+              <%= @books.where(created_at: 2.day.ago.all_day).count %>
+            </td>
+            <td>
+              <%= @books.created_yesterday.count %>
+            </td>
+            <td>
+              <%= @books.created_today.count %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <canvas id="myhart"></canvas>
+      <script>
+        var ctx = document.getElementById("mychart");
+        // 線グラフの設定
+        var mychart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            // ※labelとデータの関係は得にありません
+            labels: ['６日前', '５日前', '４日前', '３日前', '２日前', '１日前', '今日'],
+            datasets: [{
+              label: 'Green',
+              data: [@books.where(created_at: 6.day.ago.all_day).count, @books.where(created_at: 5.day.ago.all_day).count, @books.where(created_at: 4.day.ago.all_day).count, @books.where(created_at: 3.day.ago.all_day).count, @books.where(created_at: 2.day.ago.all_day).count,  @books.created_yesterday.count,  @books.created_today.count],
+              borderColor: '#484',
+            }]
+            // }, {     追加するならこれ
+            //   label: 'Blue',
+            //   data: [30, 25, 10, 5, 25, 30, 20],
+            //   borderColor: '#48f',
+            // }],
+          },
+          options: {
+            scales: {
+              // Y軸の最大値・最小値、目盛りの範囲などを設定する
+              y: {
+                suggestedMin: 0,
+                suggestedMax: 10,
+                ticks: {
+                  stepSize: 10,
+                }
+              }
+            },
+          },
+        });
+        // let lineChart = new Chart(lineCtx, lineConfig);
+      </script>
       <h4>投稿数の前日比・前週比</h4>
-      <table class="table table-hover table-inverse border border-success" style="width:80%;margin:10px auto 0;">
+      <table class="table table-hover table-inverse border border-success" style="width:80%;margin:10px auto 0;text-align:center;">
         <thead>
           <th>今日の投稿数</th>
           <th>前日の投稿数</th>
@@ -99,7 +171,7 @@
           </tr>
         </tbody>
       </table>
-      <table class="table table-hover table-inverse border border-success" style="width:80%;margin:10px auto 0;">
+      <table class="table table-hover table-inverse border border-success" style="width:80%;margin:10px auto 0;text-align:center;">
         <thead>
           <th>今週の投稿数</th>
           <th>先週の投稿数</th>
