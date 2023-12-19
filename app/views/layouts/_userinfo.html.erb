@@ -1,45 +1,46 @@
 <h2>User info</h2>
-      <%= image_tag user.get_profile_image(100,100) %>
-      <% if current_user.following?(user) && user.following?(current_user) %>
-        <%= link_to "DMへ", chat_path(user), class:"btn btn-success float-right" %>
-      <% end %>
-      <table class="table">
-        <tbody>
-          <tr>
-            <th>name</th>
-            <th><%= user.name %></th>
-          </tr>
-          <tr>
-            <th>introduction</th>
-            <th><%= user.introduction %></th>
-          </tr>
-          <tr>
-            <th>follows</th>
-            <th>
-              <%= link_to user_followings_path(user) do %>
-                <%= user.followings.count %>
-              <% end %>
-            </th>
-          </tr>
-          <tr>
-            <th>followers</th>
-            <th>
-              <%= link_to user_followers_path(user) do %>
-                <%= user.followers.count %>
-              <% end %>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-      <% unless user == current_user %>
-        <% if current_user.following?(user) %>
-          <%= link_to "フォロー解除", user_relationships_path(user.id), method: :delete %>
-        <% else %>
-          <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+<%= image_tag user.get_profile_image(100,100) %>
+<% if current_user.following?(user) && user.following?(current_user) %>
+  <%= link_to "DMへ", chat_path(user), class:"btn btn-outline-success float-right" %>
+<% end %>
+<table class="table" style="margin-top:10px;">
+  <tbody>
+    <tr>
+      <th>name</th>
+      <th><%= user.name %></th>
+    </tr>
+    <tr>
+      <th>introduction</th>
+      <th><%= user.introduction %></th>
+    </tr>
+    <tr>
+      <th>follows</th>
+      <th>
+        <%= link_to user_followings_path(user) do %>
+          <%= user.followings.count %>
         <% end %>
-      <% end %>
-      <div class="row" style='margin: 10px 5px 0px 5px;'>
-        <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block edit_user_path" do %>
-          <i class="fas fa-user-cog"></i>
+      </th>
+    </tr>
+    <tr>
+      <th>followers</th>
+      <th>
+        <%= link_to user_followers_path(user) do %>
+          <%= user.followers.count %>
         <% end %>
-      </div>
+      </th>
+    </tr>
+  </tbody>
+</table>
+<% unless user == current_user %>
+  <% if current_user.following?(user) %>
+    <%= link_to "フォロー解除", user_relationships_path(user.id), method: :delete %>
+  <% else %>
+    <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+  <% end %>
+<% end %>
+<div class="row" style='margin: 10px 5px 0px 5px;'>
+  <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block edit_user_path" do %>
+    <i class="fas fa-user-cog"></i>
+  <% end %>
+</div>
+<div class="adaptable-bottom"></div>

@@ -6,9 +6,9 @@
       <%= render 'layouts/userinfo', user: @opponent %>
     </div>
     <div class="col-9">
-      <h2 style="margin: 30px 0px 30px 50px;"><%= @opponent.name%></h2>
+      <h2 style="margin: 0px 0px 30px 50px;"><%= @opponent.name%></h2>
       <div class="chat-flame">
-        <div class="message-index ">
+        <div class="message-index  overflow-auto" style="max-height:400px;">
           <%= render "chats/index", chats: @chats %>
         </div>
 
@@ -19,12 +19,12 @@
 
         <%= form_with model: @chat, local: false do |f| %>
           <div class="row" style="margin-top:10px;">
-            <div class="col-1"></div>
+            <div class="col-2"></div>
             <div class="form-group col-8">
               <%= f.text_field :message, class:"form-control", id:"message_textarea" %>
             </div>
-            <div class="form-group col-1">
-              <%= f.submit 'Send', class: "btn btn-success" %>
+            <div class="form-group col-2">
+              <%= f.submit 'Send', class: "btn btn-outline-success" %>
             </div>
           </div>
           <%= f.hidden_field :room_id %>
