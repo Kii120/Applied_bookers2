@@ -31,6 +31,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    @date = params[:date]
+    @user = User.find(params[:user_id])
+    @bookscount = @user.books.where(['created_at LIKE ? ', "#{@date}%"]).count
+  end
+
   private
 
   def user_params
