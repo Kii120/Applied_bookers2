@@ -12,8 +12,8 @@ class User < ApplicationRecord
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
-  has_many :followings, through: :relationships, source: :followed #フォローしている人をたくさん持っている. followedとして保存されている？
-  has_many :followers, through: :reverse_relationships, source: :follower #フォロワーをたくさん持っている．
+  has_many :followings, through: :relationships, source: :followed #フォローしている人をたくさん持っている. followed_idとして保存されている？
+  has_many :followers, through: :reverse_relationships, source: :follower #フォロワーをたくさん持っている． follower_idとして保存されている
 
   # DM機能
   has_many :chats, dependent: :destroy
@@ -22,8 +22,10 @@ class User < ApplicationRecord
 
   has_many :view_counts, dependent: :destroy
 
-  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  has_many :group_users, dependent: :destroy
+  has_many :groups, through: :group_users
 
+  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
 
   def get_profile_image(width, height)
