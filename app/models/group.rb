@@ -15,4 +15,17 @@ class Group < ApplicationRecord
     end
     group_image.variant(resize_to_limit: [width, height]).processed
   end
+
+  def join_to(group)
+    @group_user = GroupUser.new
+    @group_user.user_id = current_user.id
+    @group_user.group_id = group.id
+    @group_user.save
+  end
+
+  def delete_from(group)
+    group_user = GroupUser.find_by(user_id: current_user, group_id: group.id)
+    group_user.destroy
+  end
+
 end

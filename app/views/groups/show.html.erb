@@ -22,6 +22,16 @@
     <div class="col-md-8 offset-md-1">
       <h2>Group Detail</h2>
       <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th>
+            <th>グループ名</th>
+            <th>紹介文</th>
+            <th>メンバー</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td>
@@ -34,8 +44,20 @@
               <%= @group.introduction %>
             </td>
             <td>
+              <% @group_users.each do |group_user| %>
+                <%= group_user.name %>
+              <% end %>
+            </td>
+            <td>
               <% if @group.owner_id == current_user.id %>
                 <%= link_to "Edit", edit_group_path(@group.id), class: "btn btn-success" %>
+              <% end %>
+            </td>
+            <td>
+              <% if GroupUser.find_by(user_id: current_user, group_id: @group.id) == nil %>
+                <%= link_to "Join this group", group_users_path, method: :create, class: 'btn btn-sm btn-success'%>
+              <% else %>
+                <%= link_to "Leave this group", group_user_path(@group), method: :delete, class: 'btn btn-sm btn-danger' %>
               <% end %>
             </td>
           </tr>

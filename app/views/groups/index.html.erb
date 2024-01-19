@@ -27,6 +27,7 @@
             <th></th>
             <th>グループ名</th>
             <th>紹介文</th>
+            <th>メンバー数</th>
             <th></th>
           </tr>
         </thead>
@@ -43,6 +44,9 @@
               </td>
               <td>
                 <%= group.introduction %>
+              </td>
+              <td>
+                <%= GroupUser.where(group_id: group.id).count %>
               </td>
               <td>
                 <% if group.owner_id == current_user.id %>
