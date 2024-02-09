@@ -45,7 +45,7 @@
             </td>
             <td>
               <% @group_users.each do |group_user| %>
-                <%= group_user.name %>
+                <%= group_user.name %><br>
               <% end %>
             </td>
             <td>
@@ -55,7 +55,7 @@
             </td>
             <td>
               <% if GroupUser.find_by(user_id: current_user, group_id: @group.id) == nil %>
-                <%= link_to "Join this group", group_users_path, method: :create, class: 'btn btn-sm btn-success'%>
+                <%= link_to "Join this group", group_users_path(group_id: @group.id), method: :create, class: 'btn btn-sm btn-success'%>
               <% else %>
                 <%= link_to "Leave this group", group_user_path(@group), method: :delete, class: 'btn btn-sm btn-danger' %>
               <% end %>
