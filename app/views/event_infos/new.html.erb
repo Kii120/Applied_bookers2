@@ -1,0 +1,35 @@
+<p id="notice"></p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h2>Event Mail</h2>
+      <%= @group.id %>
+      <% if @event_info.errors.any? %>
+        <div id="error_explanation">
+          <h3>
+            <%= @event_info.errors.count %> errors prohibited this obj from being saved:
+          </h3>
+          <ul>
+            <% @event_info.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%= form_with(model: EventInfo.new, url: event_infos_path) do |f| %>
+        <div class="form-group">
+          <label for="event_info_title">Title</label>
+          <%= f.text_field :title, class:"form-control event_info_title" %>
+        </div>
+        <div class="form-group">
+          <label for="event_info_content">Content</label>
+          <%= f.text_area :content, class: "form-control-file event_info_content" %>
+        </div>
+        <%= f.hidden_field :group_id, value: @group.id %>
+        <div class="form-group">
+          <%= f.submit 'Send', class:"btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

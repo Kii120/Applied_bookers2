@@ -1,6 +1,7 @@
 class Group < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :users, through: :group_users
+  has_many :event_infos, dependent: :destroy
   belongs_to :owner, class_name: "User"
 
   validates :name, presence: true
