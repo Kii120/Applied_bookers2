@@ -3,7 +3,6 @@
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <h2>Event Mail</h2>
-      <%= @group.id %>
       <% if @event_info.errors.any? %>
         <div id="error_explanation">
           <h3>
@@ -16,6 +15,7 @@
           </ul>
         </div>
       <% end %>
+      <%# フォーム内にインスタンス変数を入れたいときは，省略形ではなくきちんと書く↓ %>
       <%= form_with(model: EventInfo.new, url: event_infos_path) do |f| %>
         <div class="form-group">
           <label for="event_info_title">Title</label>

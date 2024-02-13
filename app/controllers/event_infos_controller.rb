@@ -7,8 +7,10 @@ class EventInfosController < ApplicationController
   def create
     @event_info = EventInfo.new(event_info_params)
     @group_id = params[:event_info][:group_id]
+    @title = params[:event_info][:title]
+    @content = params[:event_info][:content]
     if @event_info.save
-      EventMailer.send_mail(params[:event_info][:title], params[:event_info][:content], @group_id).deliver
+      EventMailer.send_mail(@title, @content, @group_id).deliver
     else
       render :new
     end
